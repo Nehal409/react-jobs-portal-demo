@@ -22,6 +22,24 @@ const RegistrationPage = () => {
                       <p className="mb-6 text-xl text-gray-700">
                         Please create a new account
                       </p>
+                      {/* Role select field*/}
+                      <div className="mb-4 text-left">
+                        <label
+                          htmlFor="type"
+                          className="block text-gray-700 font-bold mb-2"
+                        >
+                          Role
+                        </label>
+                        <select
+                          id="type"
+                          name="type"
+                          className="border rounded w-full py-2 px-3 mb-2 text-black"
+                          required
+                        >
+                          <option value="Recruiter">Recruiter</option>
+                          <option value="Job Seeker">Job Seeker</option>
+                        </select>
+                      </div>
                       {/* Email input */}
                       <div className="mb-4 text-left">
                         <label className="block font-bold mb-2 text-gray-700">
@@ -31,8 +49,8 @@ const RegistrationPage = () => {
                           type="text"
                           id="email"
                           name="email"
-                          className="border rounded w-full py-2 px-3 mb-2"
-                          placeholder="test@gmail.com"
+                          className="border rounded w-full py-2 px-3 mb-2 text-black"
+                          placeholder="test@example.com"
                           required
                         />
                       </div>
@@ -46,7 +64,7 @@ const RegistrationPage = () => {
                           type="text"
                           id="firstName"
                           name="firstName"
-                          className="border rounded w-full py-2 px-3 mb-2"
+                          className="border rounded w-full py-2 px-3 mb-2 text-black"
                           placeholder="John"
                           required
                         />
@@ -61,7 +79,7 @@ const RegistrationPage = () => {
                           type="text"
                           id="lastName"
                           name="lastName"
-                          className="border rounded w-full py-2 px-3 mb-2"
+                          className="border rounded w-full py-2 px-3 mb-2 text-black"
                           placeholder="Doe"
                           required
                         />
@@ -76,7 +94,7 @@ const RegistrationPage = () => {
                           type="tel"
                           id="phone"
                           name="phone"
-                          className="border rounded w-full py-2 px-3 mb-2"
+                          className="border rounded w-full py-2 px-3 mb-2 text-black"
                           placeholder="+92 1112223334"
                           required
                         />
@@ -91,7 +109,7 @@ const RegistrationPage = () => {
                           type="password"
                           id="password"
                           name="password"
-                          className="border rounded w-full py-2 px-3 mb-2"
+                          className="border rounded w-full py-2 px-3 mb-2 text-black"
                           placeholder="*********"
                           required
                         />
@@ -106,7 +124,7 @@ const RegistrationPage = () => {
                           type="password"
                           id="confirmPassword"
                           name="confirmPassword"
-                          className="border rounded w-full py-2 px-3 mb-2"
+                          className="border rounded w-full py-2 px-3 mb-2 text-black"
                           placeholder="*********"
                           required
                         />
