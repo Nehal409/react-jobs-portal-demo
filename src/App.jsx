@@ -10,6 +10,7 @@ import HomePage from './pages/HomePage';
 import JobPage, { jobLoader } from './pages/JobPage'; // No curly braces with jobPage because it is exported as default
 import JobsPages from './pages/JobsPages';
 import NotFoundPage from './pages/NotFoundPage';
+import EditJobPage from './pages/EditJobPage';
 
 const App = () => {
   // Add new job
@@ -32,6 +33,18 @@ const App = () => {
     return;
   };
 
+  // Update job
+  const updateJob = async job => {
+    await fetch(`/api/jobs/${job.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(job),
+    });
+    return;
+  };
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
@@ -42,6 +55,11 @@ const App = () => {
           path="/jobs/:id"
           element={<JobPage deleteJob={deleteJobById} />}
           loader={jobLoader}
+        />
+        <Route
+          path="/edit-job/:id"
+          element={<EditJobPage updateJobSubmit={updateJob} />}
+          loader={jobLoader} // also pass in the loader to the edit page cause it requires job data for editing the job.
         />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
