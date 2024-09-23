@@ -16,8 +16,8 @@ import NotFoundPage from './pages/NotFoundPage';
 import RegistrationPage from './pages/RegistrationPage';
 
 const App = () => {
-  const accessToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiUmVjcnVpdGVyIiwidXNlcklkIjoxLCJpYXQiOjE3MjcwNzE2MTgsImV4cCI6MTcyNzE1ODAxOH0.llsjtIvf2a4TOyNsp_hCHR6UK3SkWK8G3sohuncW_QQ';
+  const accessToken = localStorage.getItem('accessToken');
+
   // Add new job
   const addJob = async newJob => {
     await fetch('/api/jobs', {

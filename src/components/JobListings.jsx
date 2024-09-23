@@ -5,8 +5,7 @@ import Spinner from './Spinner';
 const JobListings = ({ isHome = false }) => {
   const [jobs, setJobs] = useState([]); // state to fetch jobs data from the API
   const [loading, setLoading] = useState(true); // state for the loading when fetching data from the API.
-  const accessToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiUmVjcnVpdGVyIiwidXNlcklkIjoxLCJpYXQiOjE3MjcwNzE2MTgsImV4cCI6MTcyNzE1ODAxOH0.llsjtIvf2a4TOyNsp_hCHR6UK3SkWK8G3sohuncW_QQ';
+  const accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
     const fetchJobs = async () => {

@@ -1,6 +1,5 @@
-import { useParams, useLoaderData, Link, useNavigate } from 'react-router-dom';
-import Spinner from '../components/Spinner';
 import { FaArrowLeft, FaMapMarker } from 'react-icons/fa';
+import { Link, useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import jobTypeMap from '../utils/constants';
 
@@ -17,23 +16,6 @@ const JobPage = ({ deleteJob }) => {
     toast.success('Job deleted successfully');
     navigate('/jobs');
   };
-  //   const [job, setJob] = useState(null);
-  //   const [loading, setLoading] = useState(true);
-
-  //   useEffect(() => {
-  //     const fetchJob = async () => {
-  //       try {
-  //         const res = await fetch(`/api/jobs/${id}`);
-  //         const data = await res.json();
-  //         setJob(data);
-  //       } catch (error) {
-  //         console.log('Error fetching data', error);
-  //       } finally {
-  //         setLoading(false);
-  //       }
-  //     };
-  //     fetchJob();
-  //   }, []);
 
   return (
     <>
@@ -127,7 +109,13 @@ const JobPage = ({ deleteJob }) => {
 };
 
 const jobLoader = async ({ params }) => {
-  const res = await fetch(`/api/jobs/${params.id}`);
+  const accessToken = localStorage.getItem('accessToken');
+  const res = await fetch(`/api/jobs/${params.id}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   const job = await res.json();
   return job.data;
 };
