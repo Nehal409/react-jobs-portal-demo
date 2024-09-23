@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 const AddJobPage = ({ addJobSubmit }) => {
   const [title, setTitle] = useState('');
-  const [type, setType] = useState('Full-Time'); // set default values for the select fields
+  const [type, setType] = useState('FULL_TIME'); // set default values for the select fields
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
   const [salary, setSalary] = useState('Under $50K');
@@ -15,7 +15,7 @@ const AddJobPage = ({ addJobSubmit }) => {
 
   const navigate = useNavigate();
 
-  const submitForm = event => {
+  const submitForm = async event => {
     event.preventDefault(); // prevent default behavior
     const newJob = {
       title,
@@ -31,9 +31,16 @@ const AddJobPage = ({ addJobSubmit }) => {
       },
     };
 
-    addJobSubmit(newJob); // Get this function from the props to create a new job.
-    toast.success('Job added successfully');
-    return navigate('/jobs'); // After a job is successfully created navigate to the jobs page.
+    try {
+      await addJobSubmit(newJob); // Get this function from the props to create a new job.
+      toast.success('Job added successfully');
+      // Wait before redirecting to the login page
+      setTimeout(() => {
+        navigate('/jobs');
+      }, 1000);
+    } catch (error) {
+      toast.error(error.message || 'Job Creation failed. Please try again.');
+    }
   };
 
   return (

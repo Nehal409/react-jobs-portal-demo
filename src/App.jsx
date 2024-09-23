@@ -20,7 +20,7 @@ const App = () => {
 
   // Add new job
   const addJob = async newJob => {
-    await fetch('/api/jobs', {
+    const res = await fetch('/api/jobs', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,6 +28,12 @@ const App = () => {
       },
       body: JSON.stringify(newJob),
     });
+
+    // If the response is not successful, throw an error
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || 'Registration failed');
+    }
     return;
   };
 
@@ -69,7 +75,6 @@ const App = () => {
     // If the response is not successful, throw an error
     if (!res.ok) {
       const errorData = await res.json();
-      console.log(errorData);
       throw new Error(errorData.message || 'Registration failed');
     }
 
