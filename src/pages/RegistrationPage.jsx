@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import logo from '../assets/images/ET-logo.jpeg';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const RegistrationPage = ({ registrationSubmit }) => {
   const [firstName, setFirstName] = useState('');
@@ -65,7 +66,7 @@ const RegistrationPage = ({ registrationSubmit }) => {
                       <p className="mb-6 text-xl text-gray-700">
                         Please create a new account
                       </p>
-                      {/* Role select field*/}
+                      {/* Role select field */}
                       <div className="mb-4 text-left">
                         <label
                           htmlFor="role"
@@ -158,16 +159,24 @@ const RegistrationPage = ({ registrationSubmit }) => {
                         <label className="block font-bold mb-2 text-gray-700">
                           Password
                         </label>
-                        <input
-                          type="password"
-                          id="password"
-                          name="password"
-                          className="border rounded w-full py-2 px-3 mb-2 text-black"
-                          placeholder="*********"
-                          required
-                          value={password}
-                          onChange={event => setPassword(event.target.value)}
-                        />
+                        <div className="relative">
+                          <input
+                            type={showPassword ? 'text' : 'password'}
+                            id="password"
+                            name="password"
+                            className="border rounded w-full py-2 px-3 mb-2 text-black"
+                            placeholder="*********"
+                            required
+                            value={password}
+                            onChange={event => setPassword(event.target.value)}
+                          />
+                          <span
+                            onClick={() => setShowPassword(prev => !prev)}
+                            className="absolute right-2 top-3 cursor-pointer text-gray-500"
+                          >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                          </span>
+                        </div>
                       </div>
 
                       {/* Confirm Password input */}
@@ -175,18 +184,28 @@ const RegistrationPage = ({ registrationSubmit }) => {
                         <label className="block font-bold mb-2 text-gray-700">
                           Confirm Password
                         </label>
-                        <input
-                          type="password"
-                          id="confirmPassword"
-                          name="confirmPassword"
-                          className="border rounded w-full py-2 px-3 mb-2 text-black"
-                          placeholder="*********"
-                          required
-                          value={confirmPassword}
-                          onChange={event =>
-                            setConfirmPassword(event.target.value)
-                          }
-                        />
+                        <div className="relative">
+                          <input
+                            type={showConfirmPassword ? 'text' : 'password'}
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            className="border rounded w-full py-2 px-3 mb-2 text-black"
+                            placeholder="*********"
+                            required
+                            value={confirmPassword}
+                            onChange={event =>
+                              setConfirmPassword(event.target.value)
+                            }
+                          />
+                          <span
+                            onClick={() =>
+                              setShowConfirmPassword(prev => !prev)
+                            }
+                            className="absolute right-2 top-3 cursor-pointer text-gray-500"
+                          >
+                            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                          </span>
+                        </div>
                       </div>
 
                       {/* Submit button */}

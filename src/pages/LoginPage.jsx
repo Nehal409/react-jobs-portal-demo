@@ -2,10 +2,14 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import logo from '../assets/images/ET-logo.jpeg';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 
 const LoginPage = ({ loginSubmit }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSubmit = async event => {
@@ -75,16 +79,24 @@ const LoginPage = ({ loginSubmit }) => {
                         <label className="block font-bold mb-2 text-gray-700">
                           Password
                         </label>
-                        <input
-                          type="password"
-                          id="password"
-                          name="password"
-                          className="border rounded w-full py-2 px-3 mb-2 text-black"
-                          placeholder="*********"
-                          required
-                          value={password}
-                          onChange={e => setPassword(e.target.value)}
-                        />
+                        <div className="relative">
+                          <input
+                            type={showPassword ? 'text' : 'password'}
+                            id="password"
+                            name="password"
+                            className="border rounded w-full py-2 px-3 mb-2 text-black"
+                            placeholder="*********"
+                            required
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                          />
+                          <span
+                            onClick={() => setShowPassword(prev => !prev)}
+                            className="absolute right-2 top-3 cursor-pointer text-gray-500"
+                          >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                          </span>
+                        </div>
                       </div>
 
                       {/* Submit button */}
