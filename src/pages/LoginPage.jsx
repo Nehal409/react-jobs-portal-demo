@@ -30,11 +30,7 @@ const LoginPage = ({ loginSubmit }) => {
         navigate('/');
       }, 2000);
     } catch (error) {
-      if (error.message) {
-        toast.error(error.message);
-      } else {
-        toast.error('Login failed. Please try again.');
-      }
+      toast.error(error.message || 'Login failed. Please try again.');
     }
   };
 

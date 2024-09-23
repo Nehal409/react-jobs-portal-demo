@@ -11,11 +11,20 @@ const RegistrationPage = ({ registrationSubmit }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState('Recruiter');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
 
-  const submitForm = event => {
+  const submitForm = async event => {
     event.preventDefault(); // prevent default behavior
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match. Please try again.');
+      return;
+    }
+
     const userPayload = {
       firstName,
       lastName,
@@ -25,9 +34,16 @@ const RegistrationPage = ({ registrationSubmit }) => {
       role,
     };
 
-    registrationSubmit(userPayload); // Get this function from the props to register a new user.
-    toast.success('User registered successfully');
-    return navigate('/login');
+    try {
+      await registrationSubmit(userPayload); // Get this function from the props to register a new user.
+      toast.success('User registered successfully');
+      // Wait before redirecting to the login page
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
+    } catch (error) {
+      toast.error(error.message || 'Registration failed. Please try again.');
+    }
   };
 
   return (

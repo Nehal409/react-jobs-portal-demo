@@ -58,14 +58,22 @@ const App = () => {
 
   // Register User
   const registerUser = async user => {
-    await fetch(`/api/auth/register`, {
+    const res = await fetch(`/api/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(user),
     });
-    return;
+
+    // If the response is not successful, throw an error
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.log(errorData);
+      throw new Error(errorData.message || 'Registration failed');
+    }
+
+    return await res.json();
   };
 
   // Login User
@@ -77,6 +85,12 @@ const App = () => {
       },
       body: JSON.stringify(user),
     });
+
+    // If the response is not successful, throw an error
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || 'Login failed');
+    }
 
     const loggedInUser = await res.json();
     return loggedInUser.data;
