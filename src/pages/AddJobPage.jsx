@@ -61,10 +61,10 @@ const AddJobPage = ({ addJobSubmit }) => {
                   value={type}
                   onChange={event => setType(event.target.value)} // set the state to the value selected from the field
                 >
-                  <option value="Full-Time">Full-Time</option>
-                  <option value="Part-Time">Part-Time</option>
-                  <option value="Remote">Remote</option>
-                  <option value="Internship">Internship</option>
+                  <option value="FULL_TIME">Full-Time</option>
+                  <option value="PART_TIME">Part-Time</option>
+                  <option value="REMOTE">Remote</option>
+                  <option value="INTERNSHIP">Internship</option>
                 </select>
               </div>
 

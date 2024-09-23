@@ -5,6 +5,8 @@ import Spinner from './Spinner';
 const JobListings = ({ isHome = false }) => {
   const [jobs, setJobs] = useState([]); // state to fetch jobs data from the API
   const [loading, setLoading] = useState(true); // state for the loading when fetching data from the API.
+  const accessToken =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiUmVjcnVpdGVyIiwidXNlcklkIjoxLCJpYXQiOjE3MjcwNzE2MTgsImV4cCI6MTcyNzE1ODAxOH0.llsjtIvf2a4TOyNsp_hCHR6UK3SkWK8G3sohuncW_QQ';
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -12,9 +14,15 @@ const JobListings = ({ isHome = false }) => {
         ? '/api/jobs?_limit=3' // For home page only fetch three jobs
         : '/api/jobs';
       try {
-        const res = await fetch(apiUrl);
-        const data = await res.json();
-        setJobs(data); // fetching jobs from the backend and putting into the jobs state
+        const res = await fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        const allJobs = await res.json();
+        setJobs(allJobs.data); // fetching jobs from the backend and putting into the jobs state
       } catch (error) {
         console.log('Error fetching data', error);
       } finally {

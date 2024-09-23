@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FaMapMarker } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import jobTypeMap from '../utils/constants';
 
 const JobListing = ({ job }) => {
   const [showFullDescription, setShowFullDescription] = useState(true);
@@ -14,8 +15,11 @@ const JobListing = ({ job }) => {
     <div className="bg-white rounded-xl shadow-md relative">
       <div className="p-4">
         <div className="mb-6">
-          <div className="text-gray-600 my-2">{job.type}</div>
-          <h3 className="text-xl font-bold">{job.title}</h3>
+          <div className="text-gray-600 my-2">
+            {' '}
+            {jobTypeMap[job.jobType] || job.jobType}
+          </div>
+          <h3 className="text-xl font-bold">{job.name}</h3>
         </div>
 
         <div className="mb-5">{description}</div>

@@ -5,17 +5,17 @@ import { toast } from 'react-toastify';
 const EditJobPage = ({ updateJobSubmit }) => {
   const job = useLoaderData();
 
-  const [title, setTitle] = useState(job.title);
-  const [type, setType] = useState(job.type); // set default values for the select fields
+  const [title, setTitle] = useState(job.name);
+  const [type, setType] = useState(job.jobType); // set default values for the select fields
   const [location, setLocation] = useState(job.location);
   const [description, setDescription] = useState(job.description);
   const [salary, setSalary] = useState(job.salary);
-  const [companyName, setCompanyName] = useState(job.company.name);
+  const [companyName, setCompanyName] = useState(job.Company.name);
   const [companyDescription, setCompanyDescription] = useState(
-    job.company.description
+    job.Company.description
   );
-  const [contactEmail, setContactEmail] = useState(job.company.contactEmail);
-  const [contactPhone, setContactPhone] = useState(job.company.contactPhone);
+  const [contactEmail, setContactEmail] = useState(job.Company.email);
+  const [contactPhone, setContactPhone] = useState(job.Company.phone);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -65,10 +65,10 @@ const EditJobPage = ({ updateJobSubmit }) => {
                   value={type}
                   onChange={event => setType(event.target.value)} // set the state to the value selected from the field
                 >
-                  <option value="Full-Time">Full-Time</option>
-                  <option value="Part-Time">Part-Time</option>
-                  <option value="Remote">Remote</option>
-                  <option value="Internship">Internship</option>
+                  <option value="FULL_TIME">Full-Time</option>
+                  <option value="PART_TIME">Part-Time</option>
+                  <option value="REMOTE">Remote</option>
+                  <option value="INTERNSHIP">Internship</option>
                 </select>
               </div>
 

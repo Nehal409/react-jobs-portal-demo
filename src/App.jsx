@@ -16,12 +16,15 @@ import NotFoundPage from './pages/NotFoundPage';
 import RegistrationPage from './pages/RegistrationPage';
 
 const App = () => {
+  const accessToken =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiUmVjcnVpdGVyIiwidXNlcklkIjoxLCJpYXQiOjE3MjcwNzE2MTgsImV4cCI6MTcyNzE1ODAxOH0.llsjtIvf2a4TOyNsp_hCHR6UK3SkWK8G3sohuncW_QQ';
   // Add new job
   const addJob = async newJob => {
     await fetch('/api/jobs', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(newJob),
     });
@@ -32,6 +35,10 @@ const App = () => {
   const deleteJobById = async id => {
     await fetch(`/api/jobs/${id}`, {
       method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
     return;
   };
@@ -42,6 +49,7 @@ const App = () => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(job),
     });
