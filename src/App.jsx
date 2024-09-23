@@ -56,6 +56,32 @@ const App = () => {
     return;
   };
 
+  // Register User
+  const registerUser = async user => {
+    await fetch(`/api/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+    return;
+  };
+
+  // Login User
+  const loginUser = async user => {
+    const res = await fetch(`/api/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+
+    const loggedInUser = await res.json();
+    return loggedInUser.data;
+  };
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
@@ -80,11 +106,14 @@ const App = () => {
 
         {/* Use NoNavbarLayout for login */}
         <Route path="/login" element={<NoNavbarLayout />}>
-          <Route index element={<LoginPage />} />
+          <Route index element={<LoginPage loginSubmit={loginUser} />} />
         </Route>
 
         <Route path="/register" element={<NoNavbarLayout />}>
-          <Route index element={<RegistrationPage />} />
+          <Route
+            index
+            element={<RegistrationPage registrationSubmit={registerUser} />}
+          />
         </Route>
 
         {/* Fallback for 404 Not Found */}

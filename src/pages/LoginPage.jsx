@@ -1,8 +1,43 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import logo from '../assets/images/ET-logo.jpeg';
 
-const LoginPage = () => {
+const LoginPage = ({ loginSubmit }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+
+    const userPayload = {
+      email,
+      password,
+    };
+
+    try {
+      // Call the loginSubmit function and get the response from the backend
+      const response = await loginSubmit(userPayload);
+
+      // Save the access token to localStorage
+      localStorage.setItem('accessToken', response.accessToken);
+
+      toast.success('Logged in successfully');
+
+      // Wait before redirecting to the home page
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
+    } catch (error) {
+      if (error.message) {
+        toast.error(error.message);
+      } else {
+        toast.error('Login failed. Please try again.');
+      }
+    }
+  };
+
   return (
     <>
       <section className="bg-indigo-50 rounded-xl shadow-md relative min-h-screen flex items-center justify-center">
@@ -18,7 +53,7 @@ const LoginPage = () => {
                         Login
                       </h4>
                     </div>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                       <p className="mb-6 text-xl text-gray-700">
                         Please login to your account
                       </p>
@@ -34,6 +69,8 @@ const LoginPage = () => {
                           className="border rounded w-full py-2 px-3 mb-2 text-black"
                           placeholder="test@gmail.com"
                           required
+                          value={email}
+                          onChange={e => setEmail(e.target.value)}
                         />
                       </div>
 
@@ -49,6 +86,8 @@ const LoginPage = () => {
                           className="border rounded w-full py-2 px-3 mb-2 text-black"
                           placeholder="*********"
                           required
+                          value={password}
+                          onChange={e => setPassword(e.target.value)}
                         />
                       </div>
 

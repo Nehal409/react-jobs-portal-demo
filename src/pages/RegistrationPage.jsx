@@ -1,8 +1,35 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import logo from '../assets/images/ET-logo.jpeg';
 
-const RegistrationPage = () => {
+const RegistrationPage = ({ registrationSubmit }) => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [role, setRole] = useState('Recruiter');
+
+  const navigate = useNavigate();
+
+  const submitForm = event => {
+    event.preventDefault(); // prevent default behavior
+    const userPayload = {
+      firstName,
+      lastName,
+      email,
+      phone,
+      password,
+      role,
+    };
+
+    registrationSubmit(userPayload); // Get this function from the props to register a new user.
+    toast.success('User registered successfully');
+    return navigate('/login');
+  };
+
   return (
     <>
       <section className="bg-indigo-50 rounded-xl shadow-md relative min-h-screen flex items-center justify-center">
@@ -18,23 +45,25 @@ const RegistrationPage = () => {
                         Register
                       </h4>
                     </div>
-                    <form>
+                    <form onSubmit={submitForm}>
                       <p className="mb-6 text-xl text-gray-700">
                         Please create a new account
                       </p>
                       {/* Role select field*/}
                       <div className="mb-4 text-left">
                         <label
-                          htmlFor="type"
+                          htmlFor="role"
                           className="block text-gray-700 font-bold mb-2"
                         >
                           Role
                         </label>
                         <select
-                          id="type"
-                          name="type"
+                          id="role"
+                          name="role"
                           className="border rounded w-full py-2 px-3 mb-2 text-black"
                           required
+                          value={role}
+                          onChange={event => setRole(event.target.value)}
                         >
                           <option value="Recruiter">Recruiter</option>
                           <option value="Job Seeker">Job Seeker</option>
@@ -46,12 +75,14 @@ const RegistrationPage = () => {
                           Email
                         </label>
                         <input
-                          type="text"
+                          type="email"
                           id="email"
                           name="email"
                           className="border rounded w-full py-2 px-3 mb-2 text-black"
                           placeholder="test@example.com"
                           required
+                          value={email}
+                          onChange={event => setEmail(event.target.value)}
                         />
                       </div>
 
@@ -67,6 +98,8 @@ const RegistrationPage = () => {
                           className="border rounded w-full py-2 px-3 mb-2 text-black"
                           placeholder="John"
                           required
+                          value={firstName}
+                          onChange={event => setFirstName(event.target.value)}
                         />
                       </div>
 
@@ -82,6 +115,8 @@ const RegistrationPage = () => {
                           className="border rounded w-full py-2 px-3 mb-2 text-black"
                           placeholder="Doe"
                           required
+                          value={lastName}
+                          onChange={event => setLastName(event.target.value)}
                         />
                       </div>
 
@@ -97,6 +132,8 @@ const RegistrationPage = () => {
                           className="border rounded w-full py-2 px-3 mb-2 text-black"
                           placeholder="+92 1112223334"
                           required
+                          value={phone}
+                          onChange={event => setPhone(event.target.value)}
                         />
                       </div>
 
@@ -112,6 +149,8 @@ const RegistrationPage = () => {
                           className="border rounded w-full py-2 px-3 mb-2 text-black"
                           placeholder="*********"
                           required
+                          value={password}
+                          onChange={event => setPassword(event.target.value)}
                         />
                       </div>
 
@@ -127,6 +166,10 @@ const RegistrationPage = () => {
                           className="border rounded w-full py-2 px-3 mb-2 text-black"
                           placeholder="*********"
                           required
+                          value={confirmPassword}
+                          onChange={event =>
+                            setConfirmPassword(event.target.value)
+                          }
                         />
                       </div>
 
